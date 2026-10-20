@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Demonstration webpage for an ENTC Software Laboratory QR-code seminar project.">
+  <title>Software Laboratory | ENTC</title>
+  <style>
+    :root {
+      --navy: #10213b;
+      --blue: #1e63d5;
+      --cyan: #36c5d8;
+      --ink: #1b2940;
+      --muted: #63718a;
+      --surface: #ffffff;
+      --bg: #f3f7fc;
+      --line: #e1e8f2;
+      --shadow: 0 18px 48px rgba(16, 33, 59, .10);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Arial, sans-serif;
+      color: var(--ink);
+      background: var(--bg);
+      line-height: 1.6;
+    }
+    a { color: inherit; }
+    .demo-banner {
+      padding: 9px 16px;
+      text-align: center;
+      color: #633d00;
+      background: #fff0c2;
+      border-bottom: 1px solid #f1d77f;
+      font-size: .88rem;
+      font-weight: 700;
+    }
+    .hero {
+      position: relative;
+      overflow: hidden;
+      color: white;
+      background: linear-gradient(125deg, #0d1c34 0%, #143b72 58%, #176a9a 100%);
+    }
+    .hero::before, .hero::after {
+      content: "";
+      position: absolute;
+      border: 1px solid rgba(255,255,255,.13);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+    .hero::before { width: 410px; height: 410px; right: -100px; top: -190px; }
+    .hero::after { width: 300px; height: 300px; right: 20px; top: -130px; }
+    .nav, .hero-content, main, footer { width: min(1120px, calc(100% - 36px)); margin: auto; }
+    .nav {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 22px 0; position: relative; z-index: 1; gap: 16px;
+    }
+    .brand { display: flex; align-items: center; gap: 12px; font-weight: 800; letter-spacing: .02em; }
+    .brand-mark {
+      display: grid; place-items: center; width: 44px; height: 44px;
+      border-radius: 13px; color: #10213b; background: white; font-weight: 900;
+    }
+    .brand small { display: block; color: #c6d8f1; font-size: .72rem; font-weight: 500; letter-spacing: .08em; }
+    .nav a { text-decoration: none; color: #e9f2ff; font-size: .93rem; margin-left: 22px; }
+    .hero-content { position: relative; z-index: 1; padding: 55px 0 78px; }
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 7px 12px; border: 1px solid rgba(255,255,255,.24);
+      border-radius: 999px; color: #d9f6ff; background: rgba(255,255,255,.08);
+      font-size: .82rem; font-weight: 700;
+    }
+    h1 { max-width: 760px; margin: 20px 0 14px; font-size: clamp(2.3rem, 5.4vw, 4.35rem); line-height: 1.08; letter-spacing: -.045em; }
+    .hero p { max-width: 660px; margin: 0; color: #d7e5f7; font-size: 1.08rem; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+    .button { display: inline-block; padding: 12px 18px; border-radius: 11px; text-decoration: none; font-weight: 750; transition: transform .2s ease; }
+    .button:hover { transform: translateY(-2px); }
+    .button-primary { color: #10213b; background: white; }
+    .button-secondary { color: white; border: 1px solid rgba(255,255,255,.35); background: rgba(255,255,255,.06); }
+    main { padding: 44px 0 64px; }
+    .section { margin-bottom: 42px; }
+    .section-heading { margin-bottom: 20px; }
+    .section-heading .label { color: var(--blue); text-transform: uppercase; font-size: .76rem; letter-spacing: .14em; font-weight: 850; }
+    h2 { margin: 5px 0 7px; font-size: clamp(1.55rem, 3vw, 2.15rem); letter-spacing: -.025em; }
+    .section-heading p { max-width: 720px; margin: 0; color: var(--muted); }
+    .overview-grid { display: grid; grid-template-columns: 1.2fr .8fr; gap: 18px; }
+    .card {
+      background: var(--surface); border: 1px solid var(--line); border-radius: 20px;
+      box-shadow: var(--shadow); padding: 25px;
+    }
+    .card h3 { margin: 0 0 10px; font-size: 1.14rem; }
+    .card p { color: var(--muted); margin: 0; }
+    .facts { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-top: 22px; }
+    .fact { background: #f4f8ff; border: 1px solid #e4edfb; border-radius: 13px; padding: 14px; }
+    .fact strong { display: block; font-size: 1rem; color: var(--navy); }
+    .fact span { display: block; color: var(--muted); font-size: .84rem; margin-top: 2px; }
+    .software-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .software-card {
+      padding: 21px; background: white; border: 1px solid var(--line); border-radius: 17px;
+      transition: transform .2s ease, box-shadow .2s ease;
+    }
+    .software-card:hover { transform: translateY(-3px); box-shadow: var(--shadow); }
+    .software-icon {
+      display: grid; place-items: center; width: 47px; height: 47px; border-radius: 14px;
+      background: #eaf2ff; color: var(--blue); font-size: 1.25rem; font-weight: 900; margin-bottom: 14px;
+    }
+    .software-card h3 { margin: 0 0 6px; font-size: 1.05rem; }
+    .software-card p { margin: 0; color: var(--muted); font-size: .91rem; }
+    .tag { display: inline-block; margin-top: 13px; padding: 4px 8px; border-radius: 7px; background: #eef7f8; color: #176c78; font-size: .75rem; font-weight: 800; }
+    .learning-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .learning-card { background: white; border: 1px solid var(--line); border-radius: 17px; padding: 21px; }
+    .number { color: var(--blue); font-weight: 900; font-size: .8rem; letter-spacing: .1em; }
+    .learning-card h3 { margin: 7px 0 7px; font-size: 1.04rem; }
+    .learning-card p { margin: 0; color: var(--muted); font-size: .91rem; }
+    .notice {
+      padding: 18px 20px; border: 1px solid #b8d9f5; border-radius: 15px;
+      background: #eaf5ff; color: #244b72;
+    }
+    .notice strong { display: block; margin-bottom: 4px; }
+    .notice p { margin: 0; font-size: .92rem; }
+    footer { border-top: 1px solid var(--line); padding: 24px 0 35px; color: var(--muted); font-size: .86rem; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px; }
+    footer strong { color: var(--ink); }
+    @media (max-width: 760px) {
+      .nav { align-items: flex-start; }
+      .nav-links { display: none; }
+      .hero-content { padding: 36px 0 56px; }
+      .overview-grid { grid-template-columns: 1fr; }
+      .software-grid, .learning-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 500px) {
+      .nav, .hero-content, main, footer { width: min(100% - 26px, 1120px); }
+      .software-grid, .learning-grid, .facts { grid-template-columns: 1fr; }
+      .card { padding: 20px; }
+      .hero p { font-size: 1rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="demo-banner">SEMINAR DEMONSTRATION • Sample webpage — verify all details before official publication</div>
+
+  <header class="hero">
+    <nav class="nav" aria-label="Main navigation">
+      <div class="brand">
+        <div class="brand-mark">E</div>
+        <div>ENTC DEPARTMENT<small>SOFTWARE LABORATORY</small></div>
+      </div>
+      <div class="nav-links">
+        <a href="#about">About</a>
+        <a href="#software">Software</a>
+        <a href="#learning">Learning</a>
+      </div>
+    </nav>
+
+    <div class="hero-content">
+      <span class="eyebrow">● QR-ACCESSIBLE LAB INFORMATION</span>
+      <h1>Explore our<br>Software Laboratory.</h1>
+      <p>A quick introduction to the digital tools and practical learning activities that support Electronics and Telecommunication Engineering students.</p>
+      <div class="hero-actions">
+        <a class="button button-primary" href="#software">Explore Software ↓</a>
+        <a class="button button-secondary" href="#about">About the Lab</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="section" id="about">
+      <div class="section-heading">
+        <span class="label">01 / Overview</span>
+        <h2>About the laboratory</h2>
+        <p>This demonstration page presents a sample overview of a software laboratory supporting practical work in electronics, communication, programming, and simulation.</p>
+      </div>
+      <div class="overview-grid">
+        <article class="card">
+          <h3>Learning through practical work</h3>
+          <p>Software tools help students model systems, write and test programs, simulate circuits, explore communication networks, and connect classroom concepts with engineering applications. The exact activities depend on the subject, experiment, and facilities available.</p>
+          <div class="facts">
+            <div class="fact"><strong>Windows 11</strong><span>Operating system reported for lab PCs</span></div>
+            <div class="fact"><strong>ENTC</strong><span>Electronics & Telecommunication Engineering</span></div>
+          </div>
+        </article>
+        <aside class="card">
+          <h3>Why a QR code?</h3>
+          <p>A QR code can link a physical laboratory to its online information page. Visitors scan the code with a smartphone camera and open the webpage in their browser, without installing a dedicated app.</p>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section" id="software">
+      <div class="section-heading">
+        <span class="label">02 / Software directory</span>
+        <h2>Tools used for learning</h2>
+        <p>The following tools were supplied for this demonstration. Their installation, licence status, and availability on individual computers should be confirmed before this page is used as an official lab directory.</p>
+      </div>
+      <div class="software-grid">
+        <article class="software-card">
+          <div class="software-icon">MS</div>
+          <h3>ModelSim</h3>
+          <p>Used to simulate and verify digital designs written in hardware description languages such as Verilog or VHDL.</p>
+          <span class="tag">HDL Simulation</span>
+        </article>
+        <article class="software-card">
+          <div class="software-icon">M</div>
+          <h3>Multisim</h3>
+          <p>A circuit-design and simulation environment for exploring electronic circuits and analysing their behaviour.</p>
+          <span class="tag">Circuit Simulation</span>
+        </article>
+        <article class="software-card">
+          <div class="software-icon">PT</div>
+          <h3>Cisco Packet Tracer</h3>
+          <p>A network simulation and learning tool for building virtual networks and observing how network devices communicate.</p>
+          <span class="tag">Networking</span>
+        </article>
+        <article class="software-card">
+          <div class="software-icon">∑</div>
+          <h3>MATLAB</h3>
+          <p>A technical computing environment used for numerical analysis, data visualisation, modelling, and engineering simulations.</p>
+          <span class="tag">Computing & Modelling</span>
+        </article>
+        <article class="software-card">
+          <div class="software-icon">Colab</div>
+          <h3>Google Colab</h3>
+          <p>A browser-based notebook environment for writing and running Python code, commonly used for data analysis and machine learning experiments.</p>
+          <span class="tag">Cloud Notebooks</span>
+        </article>
+        <article class="software-card">
+          <div class="software-icon">&lt;/&gt;</div>
+          <h3>Code::Blocks</h3>
+          <p>An integrated development environment used for writing, compiling, and debugging programs, especially in C and C++.</p>
+          <span class="tag">Programming</span>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="learning">
+      <div class="section-heading">
+        <span class="label">03 / Practical learning</span>
+        <h2>What students can explore</h2>
+        <p>Examples of learning areas supported by the listed tools. These are illustrative examples, not a verified list of prescribed experiments.</p>
+      </div>
+      <div class="learning-grid">
+        <article class="learning-card">
+          <span class="number">AREA 01</span>
+          <h3>Digital design</h3>
+          <p>Simulate logic circuits and inspect waveforms to understand how digital systems behave.</p>
+        </article>
+        <article class="learning-card">
+          <span class="number">AREA 02</span>
+          <h3>Electronic circuits</h3>
+          <p>Build virtual circuit models and study responses before or alongside practical implementation.</p>
+        </article>
+        <article class="learning-card">
+          <span class="number">AREA 03</span>
+          <h3>Programming & analysis</h3>
+          <p>Practise programming, numerical computation, plotting, and structured problem-solving.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="notice">
+        <strong>Demonstration notice</strong>
+        <p>This webpage was created as a prototype for a QR-code technical seminar. It is not an official college publication. Confirm laboratory details, software availability, permissions, and contact information with the department before using it for real visitors.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div><strong>ENTC Department</strong><br>Software Laboratory · QR Information Prototype</div>
+    <div>Created for academic demonstration · No personal data collected</div>
+  </footer>
+</body>
+</html>
